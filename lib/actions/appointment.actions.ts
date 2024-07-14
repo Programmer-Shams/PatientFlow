@@ -6,7 +6,7 @@ import { ID, Query } from "node-appwrite";
 import { Appointment } from "@/types/appwrite.types";
 
 import {
-  APPOINTMENT_COLLECTION_ID,
+  APPOINTMENTS_COLLECTION_ID,
   DATABASE_ID,
   databases,
   messaging,
@@ -20,7 +20,7 @@ export const createAppointment = async (
   try {
     const newAppointment = await databases.createDocument(
       DATABASE_ID!,
-      APPOINTMENT_COLLECTION_ID!,
+      APPOINTMENTS_COLLECTION_ID!,
       ID.unique(),
       appointment
     );
@@ -32,12 +32,14 @@ export const createAppointment = async (
   }
 };
 
+
+
 //  GET RECENT APPOINTMENTS
 export const getRecentAppointmentList = async () => {
   try {
     const appointments = await databases.listDocuments(
       DATABASE_ID!,
-      APPOINTMENT_COLLECTION_ID!,
+      APPOINTMENTS_COLLECTION_ID!,
       [Query.orderDesc("$createdAt")]
     );
 
@@ -127,7 +129,7 @@ export const updateAppointment = async ({
     // Update appointment to scheduled -> https://appwrite.io/docs/references/cloud/server-nodejs/databases#updateDocument
     const updatedAppointment = await databases.updateDocument(
       DATABASE_ID!,
-      APPOINTMENT_COLLECTION_ID!,
+      APPOINTMENTS_COLLECTION_ID!,
       appointmentId,
       appointment
     );
@@ -149,7 +151,7 @@ export const getAppointment = async (appointmentId: string) => {
   try {
     const appointment = await databases.getDocument(
       DATABASE_ID!,
-      APPOINTMENT_COLLECTION_ID!,
+      APPOINTMENTS_COLLECTION_ID!,
       appointmentId
     );
 
